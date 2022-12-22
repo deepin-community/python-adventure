@@ -1,0 +1,58 @@
+Description: Refactor make-or-resume-game to a separate function.
+Author: Ben Finney <ben+python@benfinney.id.au>
+Last-Update: 2016-04-11
+
+diff --git a/adventure/__main__.py b/adventure/__main__.py
+index 14f8f2c..9900a1a 100644
+--- a/adventure/__main__.py
++++ b/adventure/__main__.py
+@@ -45,20 +45,33 @@ class AdventureArgumentParser(argparse.ArgumentParser):
+             help='The filename of game you have saved.')
+ 
+ 
+-def loop():
+-    parser = AdventureArgumentParser(
+-        prog='{} -m adventure'.format(os.path.basename(sys.executable)))
+-    args = parser.parse_args()
++def make_or_resume_game(gamefile_path=None):
++    """ Make a new game, or resume from the `gamefile_path`.
+ 
+-    if args.savefile is None:
++        :param gamefile_path: The filesystem path of the saved game to
++            restore, or ``None`` to create a new game.
++        :return: The `Game` instance.
++
++        """
++    if gamefile_path is None:
+         game = Game()
+         load_advent_dat(game)
+         game.start()
+         baudout(game.output)
+     else:
+-        game = Game.resume(args.savefile)
++        game = Game.resume(gamefile_path)
+         baudout('GAME RESTORED\n')
+ 
++    return game
++
++
++def loop():
++    parser = AdventureArgumentParser(
++        prog='{} -m adventure'.format(os.path.basename(sys.executable)))
++    args = parser.parse_args()
++
++    game = make_or_resume_game(args.savefile)
++
+     while not game.is_finished:
+         line = input('> ')
+         words = re.findall(r'\w+', line)
+-- 
+Local variables:
+coding: utf-8
+mode: diff
+time-stamp-format: "%:y-%02m-%02d"
+time-stamp-start: "^Last-Update:[ 	]+"
+time-stamp-end: "$"
+time-stamp-line-limit: 20
+End:
+vim: fileencoding=utf-8 filetype=diff :

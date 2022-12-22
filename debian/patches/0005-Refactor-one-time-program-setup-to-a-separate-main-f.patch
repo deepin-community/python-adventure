@@ -1,0 +1,58 @@
+Description: Refactor one-time program setup to a separate ‘main’ function.
+Author: Ben Finney <ben+python@benfinney.id.au>
+Last-Update: 2016-04-11
+
+diff --git a/adventure/__main__.py b/adventure/__main__.py
+index 9900a1a..d9e239c 100644
+--- a/adventure/__main__.py
++++ b/adventure/__main__.py
+@@ -65,13 +65,13 @@ def make_or_resume_game(gamefile_path=None):
+     return game
+ 
+ 
+-def loop():
+-    parser = AdventureArgumentParser(
+-        prog='{} -m adventure'.format(os.path.basename(sys.executable)))
+-    args = parser.parse_args()
++def loop(game):
++    """ The main Read-Eval-Print Loop for this program.
+ 
+-    game = make_or_resume_game(args.savefile)
++        :param game: The `Game` instance to play.
++        :return: None.
+ 
++        """
+     while not game.is_finished:
+         line = input('> ')
+         words = re.findall(r'\w+', line)
+@@ -79,8 +79,19 @@ def loop():
+             baudout(game.do_command(words))
+ 
+ 
++def main():
++    """ Main-line code for this program. """
++    parser = AdventureArgumentParser(
++        prog='{} -m adventure'.format(os.path.basename(sys.executable)))
++    options = parser.parse_args()
++
++    game = make_or_resume_game(options.savefile)
++
++    loop(game)
++
++
+ if __name__ == '__main__':
+     try:
+-        loop()
++        main()
+     except EOFError:
+         pass
+-- 
+Local variables:
+coding: utf-8
+mode: diff
+time-stamp-format: "%:y-%02m-%02d"
+time-stamp-start: "^Last-Update:[ 	]+"
+time-stamp-end: "$"
+time-stamp-line-limit: 20
+End:
+vim: fileencoding=utf-8 filetype=diff :

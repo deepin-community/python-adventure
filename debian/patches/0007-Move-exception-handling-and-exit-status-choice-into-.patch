@@ -1,0 +1,57 @@
+Description: Move exception handling and exit status choice into ‘main’ function.
+Author: Ben Finney <ben+python@benfinney.id.au>
+Last-Update: 2016-04-11
+
+diff --git a/adventure/__main__.py b/adventure/__main__.py
+index 47b741c..0b0d254 100644
+--- a/adventure/__main__.py
++++ b/adventure/__main__.py
+@@ -84,22 +84,29 @@ def main(argv=None):
+ 
+         :param argv: Sequence of command-line arguments to the process.
+             If ``None``, defaults to `sys.argv`.
+-        :return: None.
++        :return: Exit status (integer) for the process.
+ 
+         """
+     if argv is None:
+         argv = sys.argv
+ 
+-    parser = AdventureArgumentParser(prog=argv[0])
+-    options = parser.parse_args(argv[1:])
++    exit_status = 0
+ 
+-    game = make_or_resume_game(options.savefile)
++    try:
++        parser = AdventureArgumentParser(prog=argv[0])
++        options = parser.parse_args(argv[1:])
+ 
+-    loop(game)
++        game = make_or_resume_game(options.savefile)
+ 
++        loop(game)
+ 
+-if __name__ == '__main__':
+-    try:
+-        main(sys.argv)
+     except EOFError:
+-        pass
++        # End of command input.
++        exit_status = 0
++
++    return exit_status
++
++
++if __name__ == '__main__':
++    exit_status = main(sys.argv)
++    sys.exit(exit_status)
+-- 
+Local variables:
+coding: utf-8
+mode: diff
+time-stamp-format: "%:y-%02m-%02d"
+time-stamp-start: "^Last-Update:[ 	]+"
+time-stamp-end: "$"
+time-stamp-line-limit: 20
+End:
+vim: fileencoding=utf-8 filetype=diff :

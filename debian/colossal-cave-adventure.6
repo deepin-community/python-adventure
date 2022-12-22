@@ -1,0 +1,168 @@
+.ds command colossal\-cave\-adventure
+.ds COMMAND COLOSSAL\-CAVE\-ADVENTURE
+.\" ==========
+.TH "\*[COMMAND]" 6 "2016-04-13" "python-adventure"
+.
+.\" ==========
+.SH NAME
+\*[command] \- text adventure of exploration in Colossal Cave
+.
+.\" ==========
+.SH SYNOPSIS
+.
+.SY \*[command]
+.RI [ SAVEFILE ]
+.YS
+.SY "\*[command] \-h"
+.YS
+.
+.\" ==========
+.SH DESCRIPTION
+.B Colossal Cave Adventure
+is a text adventure game of exploration.
+.IP
+Somewhere nearby is Colossal Cave, where others have found fortunes in treasure and gold, though it is rumored that some who enter are never seen again.
+.PP
+Originally named “ADVENT” or “Adventure”, this is the first known work of interactive fiction.
+As the first text adventure game, it is considered the precursor for the adventure game genre.
+.PP
+In the game, you control a character through simple text commands to explore a cave rumored to be filled with wealth.
+You earn predetetermined points for acquiring treasure and escaping the cave alive, with the goal to earn the maximum amount of points offered.
+.PP
+This is a re-implementation of the “350-point” version, using the same game content from the original Crowther and Woods PDP-10 source code of the late 1970s.
+.PP
+It uses the original text exactly, and emits responses slow enough to read as the contemporary terminal interfaces did.
+.PP
+.
+.\" ==========
+.SH OPTIONS
+.
+.SS Positional Arguments
+.TP
+\f[I]SAVEFILE\f[]
+The filename of game you have saved.
+.
+.SS Optional Arguments
+.TP
+\f[B]\-\-help\f[], \f[B]\-h\f[]
+Describe how to use the program.
+.
+.\" ==========
+.SH INVOCATION
+.SS Begin a game
+Run the command
+.B "\*[command]"
+in a terminal to begin the game:
+.IP
+.EX
+.RB "$ " "\*[command]"
+WELCOME TO ADVENTURE!!  WOULD YOU LIKE INSTRUCTIONS?
+
+>
+.EE
+.PP
+.
+.SS Restore the game state
+If you saved the game state with the in-game \f[B]save\f[]\~\f[I]SAVEFILE\f[] command, you can restore the game to the same state by specifying the
+.I SAVEFILE
+name when you invoke the program:
+.IP
+.EX
+.RB "$ " "\*[command] mygame"
+GAME RESTORED
+>
+.EE
+.PP
+.
+.
+.\" ==========
+.SH COMMANDS
+.
+.SS Interact with the game
+At the \f[CB]>\f[] prompt, type one\[hy] or two\[hy]word commands to specify what to do next:
+.IP
+.EX
+WELCOME TO ADVENTURE!!  WOULD YOU LIKE INSTRUCTIONS?
+
+.RB "> " "no"
+YOU ARE STANDING AT THE END OF A ROAD BEFORE A SMALL BRICK BUILDING.
+AROUND YOU IS A FOREST.  A SMALL STREAM FLOWS OUT OF THE BUILDING AND
+DOWN A GULLY.
+
+.RB "> " "go east"
+YOU ARE INSIDE A BUILDING, A WELL HOUSE FOR A LARGE SPRING.
+THERE ARE SOME KEYS ON THE GROUND HERE.
+THERE IS A SHINY BRASS LAMP NEARBY.
+THERE IS FOOD HERE.
+THERE IS A BOTTLE OF WATER HERE.
+
+.RB "> " "get lamp"
+OK
+
+.RB "> " "leave"
+YOU'RE AT END OF ROAD AGAIN.
+
+.RB "> " "go south"
+YOU ARE IN A VALLEY IN THE FOREST BESIDE A STREAM TUMBLING ALONG A
+ROCKY BED.
+.EE
+.PP
+The original Adventure paid attention to only the first five letters of each command, so a long command like
+.B inventory
+could simply be typed as
+.BR inven .
+This package defines a symbol for both versions of every long word, so you can type the long or short version as you please.
+.PP
+.
+.SS Save the game state
+You can save the current state of your game at any time with the \f[B]save\f[]\~\f[I]SAVEFILE\f[] command:
+.IP
+.EX
+.RB "> " "save mygame"
+GAME SAVED
+.RB "> " "quit"
+DO YOU REALLY WANT TO QUIT NOW?
+.RB "> " "y"
+OK
+.EE
+.PP
+.
+.\" ==========
+.SH NOTES
+.SS Speed of output
+For extra authenticity, the output of the Adventure game is typed to your screen at 1200 baud.
+You will note that although this prints the text faster than you can read it anyway, your experience of the game will improve considerably, especially when a move results in a surprise.
+.PP
+Why is the game better at 1200 baud?
+When a paragraph of text is allowed to appear on the screen all at once, your eyes scan the entire paragraph for important information, often ruining any surprises before you can then settle down and read it from the beginning.
+But at 1200 baud, you wind up reading the text in order as it appears, which unfolds the narrative sequentially as the authors of \f[B]Adventure\f[] intended.
+.
+.\" ==========
+.SH HISTORY
+This is an implementation of the
+.B Colossal Cave Adventure
+game, originally written in 1975–1977 by Will Crowther and Don Woods.
+Crowther's original source code, which had been presumed lost for decades, was recovered in 2005 from a backup (dated 1977-03) of Don Woods's student account on the PDP-10 computer at the Stanford Artificial Intelligence Lab (SAIL).
+.PP
+This is the
+.UR https://pypi.python.org/pypi/adventure/
+.B adventure
+distribution
+.UE ,
+ported from the 1977 FORTRAN code to Python\~3 by
+.MT brandon@rhodesmill.org
+Brandon Craig Rhodes
+.ME .
+.
+.\" ==========
+.SH COPYRIGHT
+Copyright © 2014–2016
+.MT ben+debian@benfinney.id.au
+Ben Finney
+.ME .
+.
+.\" Local variables:
+.\" coding: utf-8
+.\" mode: nroff
+.\" End:
+.\" vim: fileencoding=utf-8 filetype=nroff :

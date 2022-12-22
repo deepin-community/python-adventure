@@ -1,0 +1,53 @@
+Description: Refactor customisation of argument parser to its own class.
+Author: Ben Finney <ben+python@benfinney.id.au>
+Last-Update: 2016-04-11
+
+diff --git a/adventure/__main__.py b/adventure/__main__.py
+index 42dea01..14f8f2c 100644
+--- a/adventure/__main__.py
++++ b/adventure/__main__.py
+@@ -24,12 +24,30 @@ def baudout(s):
+         sys.stdout.flush()
+ 
+ 
++class AdventureArgumentParser(argparse.ArgumentParser):
++    """ Command-line argument parser for this program. """
++
++    default_description = 'Adventure into the Colossal Caves.'
++
++    def __init__(self, *args, **kwargs):
++        super().__init__(*args, **kwargs)
++
++        if self.description is None:
++            self.description = self.default_description
++
++        self._add_arguments()
++
++    def _add_arguments(self):
++        """ Add arguments specific to this program. """
++
++        self.add_argument(
++            'savefile', nargs='?',
++            help='The filename of game you have saved.')
++
++
+ def loop():
+-    parser = argparse.ArgumentParser(
+-        description='Adventure into the Colossal Caves.',
++    parser = AdventureArgumentParser(
+         prog='{} -m adventure'.format(os.path.basename(sys.executable)))
+-    parser.add_argument(
+-        'savefile', nargs='?', help='The filename of game you have saved.')
+     args = parser.parse_args()
+ 
+     if args.savefile is None:
+-- 
+Local variables:
+coding: utf-8
+mode: diff
+time-stamp-format: "%:y-%02m-%02d"
+time-stamp-start: "^Last-Update:[ 	]+"
+time-stamp-end: "$"
+time-stamp-line-limit: 20
+End:
+vim: fileencoding=utf-8 filetype=diff :

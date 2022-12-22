@@ -1,0 +1,51 @@
+Description: Pass command-line arguments as explicit parameter to ‘main’.
+Author: Ben Finney <ben+python@benfinney.id.au>
+Last-Update: 2016-04-13
+
+diff --git a/adventure/__main__.py b/adventure/__main__.py
+index d9e239c..47b741c 100644
+--- a/adventure/__main__.py
++++ b/adventure/__main__.py
+@@ -79,11 +79,19 @@ def loop(game):
+             baudout(game.do_command(words))
+ 
+ 
+-def main():
+-    """ Main-line code for this program. """
+-    parser = AdventureArgumentParser(
+-        prog='{} -m adventure'.format(os.path.basename(sys.executable)))
+-    options = parser.parse_args()
++def main(argv=None):
++    """ Main-line code for this program.
++
++        :param argv: Sequence of command-line arguments to the process.
++            If ``None``, defaults to `sys.argv`.
++        :return: None.
++
++        """
++    if argv is None:
++        argv = sys.argv
++
++    parser = AdventureArgumentParser(prog=argv[0])
++    options = parser.parse_args(argv[1:])
+ 
+     game = make_or_resume_game(options.savefile)
+ 
+@@ -92,6 +100,6 @@ def main():
+ 
+ if __name__ == '__main__':
+     try:
+-        main()
++        main(sys.argv)
+     except EOFError:
+         pass
+-- 
+Local variables:
+coding: utf-8
+mode: diff
+time-stamp-format: "%:y-%02m-%02d"
+time-stamp-start: "^Last-Update:[ 	]+"
+time-stamp-end: "$"
+time-stamp-line-limit: 20
+End:
+vim: fileencoding=utf-8 filetype=diff :

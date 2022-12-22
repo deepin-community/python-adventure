@@ -1,0 +1,39 @@
+Description: Add entry point for stand-alone program.
+Author: Ben Finney <ben+python@benfinney.id.au>
+Last-Update: 2016-04-11
+
+diff --git a/setup.py b/setup.py
+index 2d34b5a..368f9e5 100644
+--- a/setup.py
++++ b/setup.py
+@@ -1,6 +1,7 @@
+ import os
+ import sys
+-from distutils.core import setup
++
++from setuptools import setup
+ 
+ if sys.version_info < (3,):
+     print('\nSorry, but Adventure can only be installed under Python 3.\n')
+@@ -20,6 +21,11 @@ setup(
+     url='https://bitbucket.org/brandon/adventure/overview',
+     packages=['adventure', 'adventure/tests'],
+     package_data={'adventure': ['README.txt', '*.dat', 'tests/*.txt']},
++    entry_points={
++        'console_scripts': [
++            'colossal-cave-adventure = adventure.__main__:main',
++        ],
++    },
+     classifiers=[
+         'Development Status :: 6 - Mature',
+         'Environment :: Console',
+-- 
+Local variables:
+coding: utf-8
+mode: diff
+time-stamp-format: "%:y-%02m-%02d"
+time-stamp-start: "^Last-Update:[ 	]+"
+time-stamp-end: "$"
+time-stamp-line-limit: 20
+End:
+vim: fileencoding=utf-8 filetype=diff :

@@ -1,0 +1,47 @@
+Description: Allow import of ‘adventure.__main__’ module.
+Author: Ben Finney <ben+python@benfinney.id.au>
+Last-Update: 2016-04-11
+
+diff --git a/adventure/__main__.py b/adventure/__main__.py
+index d5b5dca..4228ae3 100644
+--- a/adventure/__main__.py
++++ b/adventure/__main__.py
+@@ -15,12 +15,14 @@ from .game import Game
+ 
+ BAUD = 1200
+ 
++
+ def baudout(s):
+     for c in s:
+         sleep(9. / BAUD)  # 8 bits + 1 stop bit @ the given baud rate
+         stdout.write(c)
+         stdout.flush()
+ 
++
+ def loop():
+     parser = argparse.ArgumentParser(
+         description='Adventure into the Colossal Caves.',
+@@ -44,7 +46,9 @@ def loop():
+         if words:
+             baudout(game.do_command(words))
+ 
+-try:
+-    loop()
+-except EOFError:
+-    pass
++
++if __name__ == '__main__':
++    try:
++        loop()
++    except EOFError:
++        pass
+-- 
+Local variables:
+coding: utf-8
+mode: diff
+time-stamp-format: "%:y-%02m-%02d"
+time-stamp-start: "^Last-Update:[ 	]+"
+time-stamp-end: "$"
+time-stamp-line-limit: 20
+End:
+vim: fileencoding=utf-8 filetype=diff :

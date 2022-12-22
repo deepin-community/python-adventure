@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version = 1.0
+Name = Colossal Cave Adventure
+GenericName = Text adventure game
+Comment = Crowther and Woods original 1970s text adventure
+Exec = colossal-cave-adventure
+Icon = colossal-cave-adventure
+Terminal = true
+Type = Application
+StartupNotify = true
+Keywords = adventure;advent;colossal;cave;spelunk;
+Categories = Game;AdventureGame;RolePlaying;

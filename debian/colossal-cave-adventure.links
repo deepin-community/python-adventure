@@ -1,0 +1,9 @@
+# colossal-cave-adventure.links
+# Symbolic links to create.
+# Manual page: ‘dh_link(1)’
+
+# Main program binary.
+usr/share/colossal-cave-adventure/colossal-cave-adventure	/usr/games/colossal-cave-adventure
+
+# Application icon.
+usr/share/games/adventure/images/cavern-light-figure.256px.8col.png	/usr/share/icons/hicolor/256x256/apps/colossal-cave-adventure.png

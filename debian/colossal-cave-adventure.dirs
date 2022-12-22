@@ -1,0 +1,6 @@
+# colossal-cave-adventure.dirs
+# Directories to create.
+# Manual page: ‘dh_installdirs(1)’
+
+usr/games/
+usr/share/icons/hicolor/256x256/apps/

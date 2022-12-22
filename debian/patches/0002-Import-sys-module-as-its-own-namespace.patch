@@ -1,0 +1,50 @@
+Description: Import ‘sys’ module as its own namespace.
+Author: Ben Finney <ben+python@benfinney.id.au>
+Last-Update: 2016-04-11
+
+diff --git a/adventure/__main__.py b/adventure/__main__.py
+index 4228ae3..42dea01 100644
+--- a/adventure/__main__.py
++++ b/adventure/__main__.py
+@@ -4,11 +4,12 @@ Copyright 2010-2015 Brandon Rhodes.  Licensed as free software under the
+ Apache License, Version 2.0 as detailed in the accompanying README.txt.
+ 
+ """
++
+ import argparse
+ import os
+ import re
+ import readline
+-from sys import executable, stdout
++import sys
+ from time import sleep
+ from . import load_advent_dat
+ from .game import Game
+@@ -19,14 +20,14 @@ BAUD = 1200
+ def baudout(s):
+     for c in s:
+         sleep(9. / BAUD)  # 8 bits + 1 stop bit @ the given baud rate
+-        stdout.write(c)
+-        stdout.flush()
++        sys.stdout.write(c)
++        sys.stdout.flush()
+ 
+ 
+ def loop():
+     parser = argparse.ArgumentParser(
+         description='Adventure into the Colossal Caves.',
+-        prog='{} -m adventure'.format(os.path.basename(executable)))
++        prog='{} -m adventure'.format(os.path.basename(sys.executable)))
+     parser.add_argument(
+         'savefile', nargs='?', help='The filename of game you have saved.')
+     args = parser.parse_args()
+-- 
+Local variables:
+coding: utf-8
+mode: diff
+time-stamp-format: "%:y-%02m-%02d"
+time-stamp-start: "^Last-Update:[ 	]+"
+time-stamp-end: "$"
+time-stamp-line-limit: 20
+End:
+vim: fileencoding=utf-8 filetype=diff :

@@ -1,0 +1,12 @@
+# colossal-cave-adventure.install
+# Build products to install.
+# Manual page: ‘dh_install(1)’
+
+# Application data.
+adventure/advent.dat    /usr/share/games/adventure/
+
+# Icons for desktop entries.
+debian/images/*.png     /usr/share/games/adventure/images/
+
+# XDG desktop entries.
+debian/*.desktop        /usr/share/applications/

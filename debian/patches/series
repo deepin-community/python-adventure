@@ -1,0 +1,8 @@
+0001-Allow-import-of-adventure.__main__-module.patch
+0002-Import-sys-module-as-its-own-namespace.patch
+0003-Refactor-customisation-of-argument-parser-to-its-own.patch
+0004-Refactor-make-or-resume-game-to-a-separate-function.patch
+0005-Refactor-one-time-program-setup-to-a-separate-main-f.patch
+0006-Pass-command-line-arguments-as-explicit-parameter-to.patch
+0007-Move-exception-handling-and-exit-status-choice-into-.patch
+0008-Add-entry-point-for-stand-alone-program.patch

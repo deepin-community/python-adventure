@@ -1,0 +1,14 @@
+python-adventure (1.4-1.1) unstable; urgency=medium
+
+  * Non maintainer upload by the Reproducible Builds team.
+  * No source change upload to rebuild on buildd with .buildinfo files.
+
+ -- Holger Levsen <holger@debian.org>  Sun, 03 Jan 2021 16:26:13 +0100
+
+python-adventure (1.4-1) unstable; urgency=medium
+
+  * The “Henrietta Swan Leavitt” release.
+  * Initial Debian release
+    (Closes: bug#743020).
+
+ -- Ben Finney <ben+debian@benfinney.id.au>  Sat, 23 Apr 2016 21:01:06 +1000
